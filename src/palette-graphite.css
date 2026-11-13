@@ -1,0 +1,110 @@
+/* Graphite palette: dark graphite surfaces with a violet accent.
+   Light is a derived neutral counterpart of the dark palette. */
+
+/* ---------- Light ---------- */
+:root,
+.light {
+  --canvas: #fafafa;
+  --ink: #111111;
+  --card: #ffffff;
+  --popover: #ffffff;
+  --sidebar: #f2f2f2;
+  --secondary: #ececec;
+  --accent: #ececec;
+  --muted: #e8e8e8;
+  --border: #e2e2e2;
+  --border-hairline: #e2e2e2;
+  --border-seam: #e6e6e6;
+  --sidebar-border: #e2e2e2;
+  --sidebar-accent: #e6e6e6;
+  --state-active: #e4e4e4;            /* selected row: solid fill */
+  --state-hover: #ebebeb;
+  --input: #c9c9c9;
+
+  --muted-foreground: #555555;
+  --readback-foreground: #646464;
+  --subtle-foreground: #6e6e6e;
+
+  --primary: #7c4ddb;
+  --primary-foreground: #ffffff;
+  --file-accent: #6d3fd0;
+
+  --destructive: #d93a3a;
+  --destructive-foreground: #ffffff;
+  --destructive-text: #b42323;
+  --warning: #d97a1f;
+  --warning-text: #a85a0c;
+  --attention: #d9a21f;
+  --success: #2f9e5b;
+  --diff-added: #2f9e5b;
+  --diff-removed: #d93a3a;
+  --pr-merged: #8b5cf6;
+
+  --selection-bg: #ddd2f7;
+  --selection-fg: var(--ink);
+  --timeline-accent: var(--primary);
+}
+
+/* ---------- Dark ---------- */
+.dark {
+  --canvas: #111111;          /* main content area */
+  --ink: #fcfcfc;             /* primary text */
+  --card: #1c1c1c;            /* grouped panels */
+  --popover: #1c1c1c;
+  --secondary: #262626;       /* inputs, pills */
+  --accent: #262626;          /* hovered rows */
+  --muted: #262626;
+  --border: #2e2e2e;          /* panel borders, row dividers */
+  --border-hairline: #2e2e2e;
+  --border-seam: #303030;     /* sidebar | content seam */
+  --input: #484848;           /* field outlines */
+
+  --sidebar: #151515;
+  --sidebar-foreground: #d9d9d9;
+  --sidebar-accent: #272727;   /* hovered / selected sidebar row */
+  --state-active: #272727;            /* selected row: #272727 on #151515 */
+  --state-hover: #1e1e1e;             /* hover stays quieter than selection */
+  --sidebar-border: #2a2a2a;
+  --surface-selected: #272727;
+  --surface-selected-border: transparent;
+
+  --muted-foreground: #aeaeae;    /* descriptions */
+  --readback-foreground: #969696; /* model name, secondary meta */
+  --subtle-foreground: #888888;   /* section labels, placeholders */
+
+  --primary: #7849d1;             /* send button, accents */
+  --primary-foreground: #ffffff;
+  --file-accent: #b99af5;
+
+  --destructive: #e5484d;
+  --destructive-foreground: #ffffff;
+  --destructive-text: #ff7b7f;
+  --warning: #f0a04b;
+  --warning-text: #f0a04b;
+  --attention: #f5c451;
+  --success: #4cc38a;
+  --diff-added: #4cc38a;
+  --diff-removed: #ff6b6f;
+  --pr-merged: #a67df2;
+
+  --selection-bg: #3a2b6b;
+  --selection-fg: var(--ink);
+  --timeline-accent: var(--file-accent);
+}
+
+/* Composer */
+:root,
+.light {
+  --composer-surface: #ffffff;
+  --composer-outline: #dcdcdc;
+  --composer-strip: #ececec;
+  --composer-placeholder: #9a9a9a;
+  --send-bg: var(--ink);
+  --send-fg: var(--canvas);
+}
+.dark {
+  --composer-surface: #2f2f2f;
+  --composer-outline: #3b3b3b;
+  --composer-strip: #212121;
+  --composer-placeholder: #626262;
+}

@@ -1,0 +1,65 @@
+{
+  "name": "bb-plugin-graphite-mono",
+  "version": "0.1.0",
+  "description": "A monospace BB theme: JetBrains Mono everywhere at Light weight, a compact reading scale and a rounded composer, in Graphite and Matrix palettes.",
+  "type": "module",
+  "license": "MIT",
+  "author": "ponomr",
+  "repository": {
+    "url": "https://github.com/ponomr/bb-plugin-graphite-mono.git",
+    "type": "git"
+  },
+  "homepage": "https://github.com/ponomr/bb-plugin-graphite-mono#readme",
+  "bugs": {
+    "url": "https://github.com/ponomr/bb-plugin-graphite-mono/issues"
+  },
+  "engines": {
+    "bbPluginSdk": ">=0.6.79 <0.7.0",
+    "bb": ">=0.47.1 <1.0.0"
+  },
+  "files": [
+    "server.ts",
+    "dist/",
+    "themes/",
+    "assets/",
+    "screenshots/",
+    "fonts/OFL.txt",
+    "README.md",
+    "PLUGIN_OVERVIEW.md",
+    "LICENSE",
+    "THIRD_PARTY_NOTICES.md"
+  ],
+  "scripts": {
+    "themes": "node scripts/build-themes.mjs",
+    "check:themes": "node scripts/build-themes.mjs --check",
+    "typecheck": "tsc --noEmit",
+    "build": "bb plugin build"
+  },
+  "bb": {
+    "name": "Graphite Mono",
+    "description": "A monospace BB theme: JetBrains Mono everywhere at Light weight, a compact reading scale and a rounded composer, in Graphite and Matrix palettes.",
+    "branding": {
+      "icon": "./assets/graphite-mono.svg"
+    },
+    "server": "./server.ts",
+    "skills": [],
+    "themes": [
+      {
+        "id": "graphite-mono",
+        "name": "Graphite Mono",
+        "description": "Neutral graphite surfaces with a violet accent, set in JetBrains Mono.",
+        "css": "./themes/graphite-mono.css"
+      },
+      {
+        "id": "matrix",
+        "name": "Graphite Mono Matrix",
+        "description": "Near-black green surfaces with mint text and a phosphor-green accent, set in JetBrains Mono.",
+        "css": "./themes/graphite-mono-matrix.css"
+      }
+    ]
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0",
+    "@get-bb/plugin-sdk": "0.6.79"
+  }
+}

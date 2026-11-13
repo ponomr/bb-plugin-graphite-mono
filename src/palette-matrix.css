@@ -1,0 +1,116 @@
+/* Matrix palette: near-black green surfaces, mint text, phosphor-green accent.
+   Dark anchors: background #040805, foreground #b8ffca, accent #1eff5a.
+   Light is a derived counterpart: pale green paper with deep green ink. */
+
+/* ---------- Light ---------- */
+:root,
+.light {
+  --canvas: #f4faf5;
+  --ink: #0b2a14;
+  --card: #ffffff;
+  --popover: #ffffff;
+  --sidebar: #eaf3ec;
+  --secondary: #e2eee5;
+  --accent: #e2eee5;
+  --muted: #dde9e0;
+  --border: #d3e2d7;
+  --border-hairline: #d3e2d7;
+  --border-seam: #dae7dd;
+  --sidebar-border: #d3e2d7;
+  --sidebar-accent: #dce9df;
+  --state-active: #d9e8dc;            /* selected row: solid fill */
+  --state-hover: #e5f0e8;
+  --input: #a9c4b0;
+
+  --muted-foreground: #3d5c46;
+  --readback-foreground: #4d6b55;
+  --subtle-foreground: #5a7662;
+
+  --primary: #0b7f2e;                 /* 5.1:1 against white */
+  --primary-foreground: #ffffff;
+  --file-accent: #0a6f28;
+
+  --destructive: #d93a3a;
+  --destructive-foreground: #ffffff;
+  --destructive-text: #b42323;
+  --warning: #c27a12;
+  --warning-text: #8a5a0c;
+  --attention: #c9971f;
+  --success: #0b7f2e;
+  --diff-added: #0b7f2e;
+  --diff-removed: #d93a3a;
+  --pr-merged: #8b5cf6;
+
+  --selection-bg: #bfe6c9;
+  --selection-fg: var(--ink);
+  --timeline-accent: var(--primary);
+  --success-foreground: var(--success);
+  --sidebar-search-match: color-mix(in oklab, var(--primary) 18%, var(--canvas));
+}
+
+/* ---------- Dark ---------- */
+.dark {
+  --canvas: #040805;          /* main content area */
+  --ink: #b8ffca;             /* primary text */
+  --card: #0d140d;            /* grouped panels */
+  --popover: #131d16;         /* menus, pickers, formatting toolbar */
+  --secondary: #151f17;       /* inputs, pills */
+  --accent: #212f25;          /* hovered / selected rows in menus */
+  --muted: #141e17;
+  --border: #202f23;          /* panel borders, menu dividers */
+  --border-hairline: #172219;
+  --border-seam: #0f1510;     /* sidebar | content seam */
+  --input: #253429;           /* field outlines, switch track */
+
+  --sidebar: #080c09;
+  --sidebar-foreground: #b8ffca;
+  --sidebar-accent: #161f17;   /* hovered / selected sidebar row */
+  --state-active: #161f17;            /* selected row: #161f17 on #080c09 */
+  --state-hover: #0f1610;             /* hover stays quieter than selection */
+  --sidebar-border: #121a13;
+  --surface-selected: #161f17;
+  --surface-selected-border: transparent;
+
+  --muted-foreground: #83b690;     /* descriptions, picked values ("main") */
+  --readback-foreground: #699374;  /* reasoning level, permission mode */
+  --subtle-foreground: #658e71;    /* section labels, search placeholders */
+
+  --primary: #1eff5a;             /* send button, toggles, accents */
+  --primary-foreground: #040805;
+  --file-accent: #1eff5a;
+
+  --destructive: #fa423e;
+  --destructive-foreground: #ffffff;
+  --destructive-text: #ff7b78;
+  --warning: #e8b84a;
+  --warning-text: #e8b84a;
+  --attention: #f5c451;
+  --success: #1eff5a;
+  --diff-added: #1eff5a;
+  --diff-removed: #fa423e;
+  --pr-merged: #a67df2;
+
+  --selection-bg: #094a1a;
+  --selection-fg: var(--ink);
+  --timeline-accent: var(--primary);
+  --sidebar-search-match: color-mix(in oklab, var(--primary) 22%, var(--canvas));
+}
+
+/* Composer */
+:root,
+.light {
+  --composer-surface: #ffffff;
+  --composer-outline: #cfe0d3;
+  --composer-strip: #e2eee5;
+  --composer-placeholder: #8aa592;
+  --send-bg: var(--primary);
+  --send-fg: var(--primary-foreground);
+}
+.dark {
+  --composer-surface: #1b281e;
+  --composer-outline: #243428;
+  --composer-strip: #121913;
+  --composer-placeholder: #425e49;
+  --send-bg: var(--ink);
+  --send-fg: var(--canvas);
+}
