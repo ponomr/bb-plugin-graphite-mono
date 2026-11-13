@@ -1,0 +1,211 @@
+/* Graphite Mono — JetBrains Mono everywhere at Light weight,
+   compact reading scale, rounded composer.
+   Shared typography, sidebar geometry and composer layout; colours live in the palette files. */
+
+/* ---------- Typography (both modes) ----------
+   UX rationale:
+   - Monospace reads larger than its px size, so 14px is comfortable body
+     text on desktop; phones get 15px.
+   - All text is Light (300), including code; bold and headings stay 600.
+   - Chat lines are long on desktop (~86 chars), so leading is 24px (1.71) to
+     help the eye find the next line; on phones lines are ~39 chars and 24px
+     at 15px (1.6) is enough. Values sit on a 2/4px grid.
+   - Phone inputs are 16px: iOS Safari zooms the page on focus below 16px. */
+:root,
+.light,
+.dark {
+  /* JetBrains Mono is embedded in the theme (variable 100–800, upright and
+     italic; Latin, Latin Extended and Cyrillic), so nothing loads from the
+     network. Characters outside those ranges fall back to the system
+     monospace: SF Mono on macOS and iOS, Menlo, Cascadia Mono or Consolas on
+     Windows, and the generic monospace elsewhere. */
+  --font-sans: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, "Cascadia Mono", Consolas, monospace;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, "Cascadia Mono", Consolas, monospace;
+
+  /*                desktop           */
+  --text-2xs: 0.6875rem;              /* 11 / 16 — badges */
+  --text-2xs--line-height: 1rem;
+  --text-xs: 0.75rem;                 /* 12 / 18 — metadata, hints */
+  --text-xs--line-height: 1.125rem;
+  --text-sm: 0.875rem;                /* 14 / 22 — UI rows, buttons */
+  --text-sm--line-height: 1.375rem;
+  --text-base: 0.875rem;              /* 14 / 24 — content */
+  --text-base--line-height: 1.5rem;
+  --leading-relaxed: 1.714286;          /* chat prose: 14 / 24 */
+
+  --chat-h1: 1.125rem;  --chat-h1-lh: 1.75rem;   /* 18 / 28 */
+  --chat-h2: 1rem;      --chat-h2-lh: 1.5rem;    /* 16 / 24 */
+  --chat-code: 0.8125rem;                        /* 13 inline code */
+  --chat-pre: 0.8125rem; --chat-pre-lh: 1.25rem; /* 13 / 20 code blocks */
+  --composer: 0.875rem;                          /* 14 / 24 */
+
+  --font-weight-normal: 300;
+  --radius: 0.75rem;
+}
+
+/* Touch phones */
+@media (width <= 767px) and (pointer: coarse) {
+  :root,
+  .light,
+  .dark {
+    --text-2xs: 0.75rem;              /* 12 / 16 */
+    --text-2xs--line-height: 1rem;
+    --text-xs: 0.8125rem;             /* 13 / 20 */
+    --text-xs--line-height: 1.25rem;
+    --text-sm: 0.9375rem;             /* 15 / 22 */
+    --text-sm--line-height: 1.375rem;
+    --text-base: 0.9375rem;           /* 15 / 24 */
+    --text-base--line-height: 1.5rem;
+    --leading-relaxed: 1.6;           /* chat prose: 15 / 24 */
+
+    --chat-h1: 1.25rem;   --chat-h1-lh: 1.75rem;   /* 20 / 28 */
+    --chat-h2: 1.0625rem; --chat-h2-lh: 1.5rem;    /* 17 / 24 */
+    --chat-code: 0.875rem;                         /* 14 */
+    --composer: 1rem;                              /* 16 / 24, no iOS zoom */
+  }
+}
+
+body { font-weight: 300; }
+b, strong { font-weight: 600; }
+
+/* Text selection: each palette sets --selection-bg and --selection-fg. */
+::selection {
+  background-color: var(--selection-bg);
+  color: var(--selection-fg);
+}
+
+/* Chat prose: code is Light like the text; headings stay 600. */
+.leading-relaxed.break-words :is(h1, h2, h3, h4, h5, h6) { font-weight: 600; }
+.leading-relaxed.break-words > p { margin-bottom: 0.75rem; }      /* half a line between paragraphs */
+.leading-relaxed.break-words > p:last-child { margin-bottom: 0; }
+.leading-relaxed.break-words h1 { font-size: var(--chat-h1); line-height: var(--chat-h1-lh); }
+.leading-relaxed.break-words h2 { font-size: var(--chat-h2); line-height: var(--chat-h2-lh); }
+.leading-relaxed.break-words :not(pre) > code { font-size: var(--chat-code); font-weight: 300; }
+.leading-relaxed.break-words pre,
+.leading-relaxed.break-words pre code { font-size: var(--chat-pre); line-height: var(--chat-pre-lh); font-weight: 300; }
+
+/* Composer */
+form[class*="group/promptbox"] .ProseMirror { font-size: var(--composer); line-height: 1.5rem; }
+
+/* Sidebar: one size for project names, threads and hints. */
+[data-sidebar="sidebar"] {
+  --text-xs: var(--text-sm);
+  --text-xs--line-height: var(--text-sm--line-height);
+}
+[data-sidebar="group-label"] {
+  color: var(--sidebar-foreground);
+  line-height: 1.75rem;
+}
+/* Rows: 30px high with 8px corners. */
+:root { --bb-sidebar-row-height: 1.875rem; }
+.bb-sidebar-hover-actions-row,
+.bb-sidebar-hover-actions-row a,
+[data-sidebar="menu-button"] { border-radius: 0.5rem; }
+
+/* ---------- Composer ----------
+   Layout: a darker context strip (project, machine) sits on top, and the
+   prompt slab overlaps its lower edge. bb renders the project, machine and
+   permission controls in [data-new-thread-footer] below the box, so on the
+   new-thread page the footer is moved above it with `order` and drawn as that strip.
+   Geometry: strip 40px high, inset 13px, 18px corners; slab 20px corners and a
+   hairline outline; the send button is a 32px circle. */
+
+/* Slab */
+form[data-promptbox] {
+  background-color: var(--composer-surface);
+  border: 0.5px solid var(--composer-outline);
+  border-radius: 1.25rem;
+  box-shadow: none;
+}
+form[data-promptbox] .ProseMirror p.is-editor-empty:first-child::before {
+  color: var(--composer-placeholder);
+  opacity: 1;
+}
+
+/* Context strip above the slab (new-thread page only) */
+[data-promptbox-shell]:has(> [data-new-thread-footer]) {
+  display: flex;
+  flex-direction: column;
+}
+[data-promptbox-shell] > [data-new-thread-footer] {
+  order: -1;
+  position: relative;
+  z-index: 0;
+  margin: 0 0.8125rem -1.25rem;          /* 13px inset; tucks 20px under the slab */
+  padding: 0 0.75rem 1.25rem;
+  min-height: 3.75rem;                   /* 40px visible + 20px hidden */
+  background-color: var(--composer-strip);
+  border-radius: 1.125rem 1.125rem 0 0;
+}
+[data-promptbox-shell] > [data-new-thread-footer] ~ [data-composer-box],
+[data-promptbox-shell]:has(> [data-new-thread-footer]) > [data-composer-box] {
+  position: relative;
+  z-index: 1;
+}
+/* Keep the empty slab ~98px tall; bb's home composer starts at 80px of editor alone. */
+[data-promptbox-shell]:has(> [data-new-thread-footer]) [data-promptbox-editor-scroll] {
+  min-height: 3.25rem !important;        /* overrides the inline 80px */
+}
+[data-promptbox-shell]:has(> [data-new-thread-footer]) > div:first-child {
+  order: -2;                             /* scheduled-send cards stay above the strip */
+}
+/* Strip text: 12px Light on every screen, nothing bold. Context (project,
+   machine, branch) in ink; settings values (permissions, mode) one tier quieter. */
+[data-new-thread-footer],
+[data-new-thread-footer] * {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 300;
+}
+[data-new-thread-footer] > div:first-child button,
+[data-new-thread-footer] > div:first-child button:hover {
+  color: var(--ink);
+}
+[data-new-thread-footer] > div:last-child button,
+[data-new-thread-footer] > div:last-child button * {
+  color: var(--readback-foreground);
+}
+[data-new-thread-footer] > div:last-child button:hover,
+[data-new-thread-footer] > div:last-child button:hover * {
+  color: var(--ink);
+}
+@media (width <= 767px) {
+  [data-promptbox-shell] > [data-new-thread-footer] {
+    margin-inline: 0.5rem;
+    padding-inline: 0.5rem;
+  }
+}
+
+/* Action row: white "+", model name in ink with grey reasoning level, white mic */
+[data-promptbox-action-row] > [data-promptbox-standard-actions]:first-child > button:first-child,
+[data-promptbox-action-row] [data-promptbox-standard-actions] > span > button {
+  color: var(--ink);
+}
+/* Model picker: 12px like the context strip, on every screen. */
+[data-promptbox-action-row] button:has([data-promptbox-hide-compact]),
+[data-promptbox-action-row] button:has([data-promptbox-hide-compact]) * {
+  font-weight: 300;
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+[data-promptbox-action-row] button:has([data-promptbox-hide-compact]) {
+  color: var(--ink);
+}
+[data-promptbox-action-row] button:has([data-promptbox-hide-compact]):hover {
+  color: var(--ink);
+}
+[data-promptbox-action-row] [data-promptbox-hide-compact] {
+  color: var(--readback-foreground);
+}
+
+/* Send button: a circle in --send-bg with a --send-fg icon (set by each palette) */
+[class*="group/send"] {
+  background-color: var(--send-bg);
+  color: var(--send-fg);
+  border-radius: 9999px;
+}
+[class*="group/send"] [data-promptbox-submit-action] {
+  width: 2rem;
+  padding: 0;
+  border-radius: 9999px;
+}
